@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gear Picks — Survival Curiosity</title>
+<meta name="description" content="The gear named in Survival Curiosity videos — one affordable, science-backed pick per problem. No hype, no $400 jackets.">
+<link rel="icon" href="photos/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,500&family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pine:#0c110e; --pine2:#121712; --card:#171e18;
+    --cream:#efe8d6; --dim:#b9b5a5; --faint:#82846f;
+    --ember:#f07c2c; --ember2:#ffa45c; --moss:#8fac7c;
+    --line:#28322a; --serif:"Fraunces",serif; --sans:"Archivo",sans-serif; --mono:"IBM Plex Mono",monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--pine); color:var(--cream); font:16px/1.6 var(--sans); overflow-x:hidden; }
+  body::before {
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.045; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%23f07c2c' stroke-width='1'%3E%3Cpath d='M60 210c0-90 60-140 150-140s150 50 150 140-60 140-150 140S60 300 60 210z'/%3E%3Cpath d='M95 210c0-70 47-110 115-110s115 40 115 110-47 110-115 110S95 280 95 210z'/%3E%3Cpath d='M130 210c0-50 34-80 80-80s80 30 80 80-34 80-80 80-80-30-80-80z'/%3E%3Cpath d='M165 210c0-30 20-50 45-50s45 20 45 50-20 50-45 50-45-20-45-50z'/%3E%3Cpath d='M-40 60 Q40 20 120 60 T280 60 T440 60'/%3E%3Cpath d='M-40 380 Q40 340 120 380 T280 380 T440 380'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:420px;
+  }
+  .wrap { position:relative; z-index:1; max-width:760px; margin:0 auto; padding:0 20px 72px; }
+
+  .hero { position:relative; margin:0 -20px; height:52vh; min-height:380px; max-height:540px; overflow:hidden; }
+  .hero img.falls { width:100%; height:100%; object-fit:cover; object-position:center 40%; transform:scale(1.05); animation:heroDrift 12s ease-out forwards; }
+  @keyframes heroDrift { to { transform:scale(1.0); } }
+  .hero .scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,17,14,.3) 0%, rgba(12,17,14,0) 32%, rgba(12,17,14,.62) 70%, var(--pine) 99%); }
+  .hero .title { position:absolute; left:20px; right:20px; bottom:20px; }
+  .kicker { font:600 .72rem/1 var(--mono); letter-spacing:.24em; text-transform:uppercase; color:var(--ember2); margin-bottom:10px; }
+  h1 { font:900 clamp(2.4rem,8.5vw,3.8rem)/0.98 var(--serif); letter-spacing:-.015em; }
+  h1 em { font-style:italic; font-weight:500; color:var(--ember2); }
+  .tagline { margin-top:10px; color:var(--dim); font-size:1rem; max-width:36ch; }
+
+  .up { opacity:0; transform:translateY(18px); animation:up .7s cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes up { to { opacity:1; transform:none; } }
+
+  .stripwrap { margin:26px -20px 0; }
+  .striphead { display:flex; align-items:baseline; justify-content:space-between; padding:0 20px 10px; }
+  .striphead span { font:600 .72rem/1 var(--mono); letter-spacing:.22em; text-transform:uppercase; color:var(--moss); }
+  .striphead a { font:600 .72rem var(--mono); color:var(--ember); text-decoration:none; letter-spacing:.08em; }
+  .strip { display:flex; gap:8px; overflow-x:auto; padding:2px 20px 14px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .strip::-webkit-scrollbar { display:none; }
+  .strip a { flex:0 0 auto; width:118px; aspect-ratio:9/16; border-radius:10px; overflow:hidden; position:relative; border:1px solid var(--line); transition:transform .18s, border-color .2s; }
+  .strip a:hover { transform:translateY(-3px) scale(1.02); border-color:var(--ember); }
+  .strip img { width:100%; height:100%; object-fit:cover; display:block; }
+  .strip a::after { content:"▶"; position:absolute; right:7px; bottom:6px; font-size:.65rem; color:#fff; opacity:.85; text-shadow:0 1px 4px rgba(0,0,0,.8); }
+
+  .fieldnote {
+    margin:22px 0 8px; padding:13px 16px; background:var(--pine2);
+    border-left:3px solid var(--ember); border-radius:0 10px 10px 0;
+    font:400 .78rem/1.55 var(--mono); color:var(--dim);
+  }
+  .fieldnote b { color:var(--cream); font-weight:600; }
+
+  .channels { display:flex; gap:10px; margin:16px 0 6px; }
+  .channels a {
+    flex:1; text-align:center; text-decoration:none; color:var(--cream);
+    background:var(--card); border:1px solid var(--line); padding:12px 10px; border-radius:10px;
+    font:800 .85rem var(--sans); transition:border-color .2s, transform .15s;
+  }
+  .channels a:hover { border-color:var(--ember); transform:translateY(-1px); }
+
+  /* ── search + category filter ── */
+  .toolbar {
+    position:sticky; top:0; z-index:20; margin:26px -20px 20px; padding:12px 20px 12px;
+    background:rgba(12,17,14,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+  }
+  .search {
+    display:flex; align-items:center; gap:10px; background:var(--card);
+    border:1px solid var(--line); border-radius:12px; padding:11px 14px; margin-bottom:10px;
+    transition:border-color .2s;
+  }
+  .search:focus-within { border-color:var(--ember); }
+  .search svg { flex:0 0 auto; opacity:.6; }
+  .search input {
+    flex:1; background:none; border:none; outline:none; color:var(--cream);
+    font:400 1rem var(--sans);
+  }
+  .search input::placeholder { color:var(--faint); }
+  .chips { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  .chips::-webkit-scrollbar { display:none; }
+  .chip {
+    flex:0 0 auto; cursor:pointer; user-select:none;
+    font:600 .78rem var(--mono); letter-spacing:.06em; color:var(--dim);
+    background:var(--card); border:1px solid var(--line); border-radius:99px; padding:7px 14px;
+    transition:all .18s;
+  }
+  .chip:hover { border-color:var(--ember); color:var(--cream); }
+  .chip.on { background:var(--ember); border-color:var(--ember); color:#160f08; font-weight:600; }
+
+  .grouphead { font:600 .74rem/1 var(--mono); letter-spacing:.26em; text-transform:uppercase; color:var(--moss); margin:34px 0 14px; display:flex; align-items:center; gap:14px; }
+  .grouphead::after { content:""; flex:1; height:1px; background:var(--line); }
+
+  .card {
+    position:relative; background:var(--card); border:1px solid var(--line);
+    border-radius:16px; overflow:hidden; margin-bottom:16px;
+    transition:border-color .25s, transform .2s, box-shadow .25s;
+  }
+  .card:hover { border-color:#41523f; transform:translateY(-3px); box-shadow:0 18px 40px -18px rgba(0,0,0,.7); }
+  .card.hide { display:none; }
+  .cardimg { position:relative; height:168px; overflow:hidden; }
+  .cardimg img { width:100%; height:100%; object-fit:cover; object-position:center 18%; transition:transform .6s ease; }
+  .card:hover .cardimg img { transform:scale(1.05); }
+  .cardimg::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,17,14,.05) 40%, var(--card) 100%); }
+  .cardimg .tag {
+    position:absolute; left:14px; top:12px; z-index:2;
+    font:600 .68rem/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#fff;
+    background:rgba(12,17,14,.72); padding:6px 10px; border-radius:7px; backdrop-filter:blur(4px);
+  }
+  .cardbody { padding:16px 20px 18px; margin-top:-26px; position:relative; z-index:2; }
+  .card h2 { font:800 1.2rem/1.25 var(--sans); margin-bottom:4px; letter-spacing:-.01em; }
+  .prod { font:600 .74rem var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--ember2); margin-bottom:10px; }
+  .science {
+    font:500 italic 1.06rem/1.5 var(--serif); color:var(--dim);
+    border-left:2px solid var(--line); padding-left:14px; margin-bottom:16px;
+  }
+  .science strong { color:var(--cream); font-weight:600; }
+  .btn {
+    display:inline-block; text-decoration:none; background:var(--ember); color:#160f08;
+    font:800 .9rem var(--sans); padding:11px 20px; border-radius:10px; transition:background .2s, transform .15s;
+  }
+  .btn:hover { background:var(--ember2); }
+  .btn:active { transform:translateY(1px); }
+  .from { font:400 .72rem/1.5 var(--mono); color:var(--faint); margin-top:12px; }
+
+  .noresults { display:none; text-align:center; color:var(--faint); font:500 italic 1.05rem var(--serif); padding:40px 0 10px; }
+  .noresults.show { display:block; }
+
+  @media (min-width:600px) {
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .card { margin-bottom:0; }
+    .cardimg { height:150px; }
+  }
+
+  footer { margin-top:56px; border-top:1px solid var(--line); padding-top:22px; }
+  .mark { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .mark img { width:44px; height:44px; border-radius:50%; }
+  .mark div { font:900 1.05rem var(--serif); }
+  .mark div small { display:block; font:400 .7rem var(--mono); color:var(--faint); letter-spacing:.1em; }
+  footer p { font-size:.78rem; color:var(--faint); line-height:1.6; margin-top:8px; }
+  footer a { color:var(--ember); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <img class="falls" src="photos/hero-falls.jpg" alt="Waterfall in the Canadian Rockies, shot by Survival Curiosity">
+    <div class="scrim"></div>
+    <div class="title">
+      <div class="kicker up" style="animation-delay:.1s">Gear picks · science-backed</div>
+      <h1 class="up" style="animation-delay:.2s">Survival <em>Curiosity</em></h1>
+      <p class="tagline up" style="animation-delay:.3s">One affordable, science-backed pick per problem. No hype, no $400 jackets — the thing that works, and the video that explains why.</p>
+    </div>
+  </header>
+
+  <div class="stripwrap up" style="animation-delay:.4s">
+    <div class="striphead">
+      <span>From the channel</span>
+      <a href="https://www.youtube.com/@survival.curiosity">watch all →</a>
+    </div>
+    <div class="strip">
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bear.jpg" alt="Why you never run from a bear"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snake.jpg" alt="Rattlesnake — TOP 5 dangerous animals"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-stars.jpg" alt="Find the North Star"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-moose.jpg" alt="Moose — the most dangerous animal on the trail"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-ocean.jpg" alt="Rip currents"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-marmot.jpg" alt="Nature's car alarm — the marmot"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snow.jpg" alt="Why down fails when wet"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-deer.jpg" alt="The deadliest animal has antlers"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-lake.jpg" alt="Cold water shock"></a>
+      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bee.jpg" alt="Bees — number two most dangerous"></a>
+    </div>
+  </div>
+
+  <div class="fieldnote up" style="animation-delay:.5s">
+    <b>Field note:</b> As an Amazon Associate I earn from qualifying purchases. Prices live on Amazon — tap through for current price and stock. Hero photo: shot on trail, by me. Stills: from the videos.
+  </div>
+
+  <nav class="channels up" style="animation-delay:.6s">
+    <a href="https://www.youtube.com/@survival.curiosity">▶ YouTube — daily Shorts</a>
+    <a href="https://www.tiktok.com/@Survival.Curiosity">♪ TikTok</a>
+  </nav>
+
+  <div class="toolbar">
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#efe8d6" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search gear — try “fire”, “ticks”, “compass”…" autocomplete="off">
+    </label>
+    <div class="chips" id="chips">
+      <span class="chip on" data-cat="all">All</span>
+      <span class="chip" data-cat="fire">Fire</span>
+      <span class="chip" data-cat="water">Water</span>
+      <span class="chip" data-cat="navigation">Navigation</span>
+      <span class="chip" data-cat="shelter">Shelter</span>
+      <span class="chip" data-cat="wildlife">Wildlife</span>
+      <span class="chip" data-cat="insects">Insects</span>
+    </div>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <div class="card" data-cat="fire" data-kw="ferro rod striker flint spark fire starter bayite matches wet campfire">
+      <div class="cardimg"><div class="tag">Fire</div><img src="photos/tile-fire.jpg" alt="Building a fire on cold ground"></div>
+      <div class="cardbody">
+        <h2>The fire starter that works soaking wet</h2>
+        <div class="prod">bayite ferro rod + striker</div>
+        <p class="science">A <strong>5,500&nbsp;°F spark shower</strong>, roughly 12,000 strikes, zero moving parts. Matches quit long before this does.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B0952TLNCW?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “WHY YOUR CAMPFIRE KEEPS DYING” · “THE RULE OF 3s”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="water" data-kw="sawyer mini water filter straw drink lake stream purify">
+      <div class="cardimg"><div class="tag">Water</div><img src="photos/tile-lake.jpg" alt="Mountain lake"></div>
+      <div class="cardbody">
+        <h2>Two ounces between you and the gamble</h2>
+        <div class="prod">Sawyer Mini water filter</div>
+        <p class="science">By the time you feel thirsty you're already <strong>~2% dehydrated</strong> — and the clean-looking lake water is the bet you don't want. Filters to 0.1 micron, rated ~100,000 gallons.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B00FA2RLX2?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “YOU'RE DEHYDRATED BEFORE YOU FEEL THIRSTY”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="navigation" data-kw="suunto compass baseplate map bearing lost north star navigate">
+      <div class="cardimg"><div class="tag">Navigation</div><img src="photos/tile-stars.jpg" alt="Milky Way over ridgeline" style="object-position:center 30%"></div>
+      <div class="cardbody">
+        <h2>No battery, no signal, no opinion</h2>
+        <div class="prod">Suunto A-10 baseplate compass</div>
+        <p class="science">Lost hikers <strong>walk in circles and genuinely can't tell</strong>. A baseplate compass doesn't die, doesn't drop bars, and doesn't care how confident you feel.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B00494ZMO2?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “WHY LOST HIKERS WALK IN CIRCLES” · “FIND THE NORTH STAR”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="shelter" data-kw="sol bivvy emergency shelter hypothermia warm sleeping bag whistle">
+      <div class="cardimg"><div class="tag">Shelter</div><img src="photos/tile-snow.jpg" alt="Winter conditions"></div>
+      <div class="cardbody">
+        <h2>Pocket shelter, 90% of your heat back</h2>
+        <div class="prod">SOL emergency bivvy</div>
+        <p class="science">Severe cold can <strong>confuse people into undressing</strong> — by then it's late. Under 4&nbsp;oz, whistle on the drawcord.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B08NC9BLQ5?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “WHY DO HYPOTHERMIA VICTIMS UNDRESS?”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="shelter" data-kw="sol emergency blanket space mylar warm rule of threes pocket">
+      <div class="cardimg"><div class="tag">Shelter</div><img src="photos/tile-forest.jpg" alt="Deep forest"></div>
+      <div class="cardbody">
+        <h2>Three hours, folded into a pocket</h2>
+        <div class="prod">SOL emergency blanket</div>
+        <p class="science">The Rule of 3s gives you <strong>three hours without shelter</strong> in bad conditions. This is those hours, at jacket-pocket weight.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B00266H5VI?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “THE RULE OF 3s”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="wildlife" data-kw="bear spray sabre frontiersman holster grizzly charge deterrent moose">
+      <div class="cardimg"><div class="tag">Wildlife</div><img src="photos/tile-grizzly.jpg" alt="Grizzly fishing a river"></div>
+      <div class="cardbody">
+        <h2>Bear spray, worn where it works</h2>
+        <div class="prod">SABRE Frontiersman + belt holster</div>
+        <p class="science">The data isn't close: <strong>spray outperforms everything else</strong> at stopping a charge. The holster matters as much as the can — a deterrent inside your backpack is a fairy tale.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B00DS3PU88?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “WHY YOU NEVER RUN FROM A BEAR” · “TOP 5 MOST DANGEROUS ANIMALS”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="insects" data-kw="piactive icaridin picaridin bug spray mosquito repellent deet free skin">
+      <div class="cardimg"><div class="tag">Insects</div><img src="photos/tile-mosquito.jpg" alt="Camper in tent at dusk"></div>
+      <div class="cardbody">
+        <h2>Twelve hours of being invisible-ish</h2>
+        <div class="prod">PiACTIVE 20% icaridin</div>
+        <p class="science">To a mosquito you're <strong>a lighthouse made of soup</strong> — CO₂, heat, and skin chemistry you can't switch off. DEET-free, made in Canada.</p>
+        <a class="btn" href="https://www.amazon.ca/dp/B079K5DH35?tag=survivalcurio-20">View on Amazon →</a>
+        <p class="from">FROM: “WHY MOSQUITOES ALWAYS FIND YOU FIRST”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="insects" data-kw="permethrin sawyer clothing spray ticks tick treat fabric lyme">
+      <div class="cardimg"><div class="tag">Insects</div><img src="photos/tile-grass.jpg" alt="Grass blades where ticks quest"></div>
+      <div class="cardbody">
+        <h2>Treat the clothes, not just the skin</h2>
+        <div class="prod">Sawyer permethrin clothing spray</div>
+        <p class="science">Treated fabric <strong>drops ticks and mosquitoes on contact</strong> and survives ~6 washes. Canadian stock varies — this search shows what's live.</p>
+        <a class="btn" href="https://www.amazon.ca/s?k=sawyer+permethrin+spray&amp;tag=survivalcurio-20">Search on Amazon →</a>
+        <p class="from">FROM: “WHY MOSQUITOES ALWAYS FIND YOU FIRST” · “TICKS CAN'T JUMP”</p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="noresults" id="noresults">Nothing matches — try “fire”, “water”, or clear the search.</p>
+
+  <footer>
+    <div class="mark">
+      <img src="photos/mark.png" alt="Survival Curiosity">
+      <div>Survival Curiosity<small>SURVIVAL SCIENCE IN 60 SECONDS</small></div>
+    </div>
+    <p>New Shorts daily on <a href="https://www.youtube.com/@survival.curiosity">YouTube</a> and <a href="https://www.tiktok.com/@Survival.Curiosity">TikTok</a>. Hero photo shot on trail by me; card imagery from the channel's videos.</p>
+    <p>As an Amazon Associate I earn from qualifying purchases. Product claims reflect manufacturer specifications — always read the current listing. Nothing here is medical or rescue advice: take a course, carry the ten essentials, tell someone your route.</p>
+  </footer>
+
+</div>
+
+<script>
+  const q = document.getElementById("q");
+  const chips = [...document.querySelectorAll(".chip")];
+  const cards = [...document.querySelectorAll(".card")];
+  const noresults = document.getElementById("noresults");
+  let cat = "all";
+
+  function apply() {
+    const term = q.value.trim().toLowerCase();
+    let shown = 0;
+    for (const c of cards) {
+      const inCat = cat === "all" || c.dataset.cat === cat;
+      const hay = (c.textContent + " " + c.dataset.kw + " " + c.dataset.cat).toLowerCase();
+      const inSearch = !term || hay.includes(term);
+      const show = inCat && inSearch;
+      c.classList.toggle("hide", !show);
+      if (show) shown++;
+    }
+    noresults.classList.toggle("show", shown === 0);
+  }
+
+  q.addEventListener("input", apply);
+  chips.forEach(ch => ch.addEventListener("click", () => {
+    chips.forEach(x => x.classList.remove("on"));
+    ch.classList.add("on");
+    cat = ch.dataset.cat;
+    apply();
+  }));
+</script>
+</body>
+</html>
