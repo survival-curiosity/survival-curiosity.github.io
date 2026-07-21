@@ -125,6 +125,7 @@
   }
   .btn:hover { background:var(--ember2); }
   .btn:active { transform:translateY(1px); }
+  .btnrow { display:flex; gap:8px; flex-wrap:wrap; }
   .from { font:400 .72rem/1.5 var(--mono); color:var(--faint); margin-top:12px; }
 
   .noresults { display:none; text-align:center; color:var(--faint); font:500 italic 1.05rem var(--serif); padding:40px 0 10px; }
@@ -199,6 +200,7 @@
       <span class="chip" data-cat="shelter">Shelter</span>
       <span class="chip" data-cat="wildlife">Wildlife</span>
       <span class="chip" data-cat="insects">Insects</span>
+      <span class="chip" data-cat="weather">Weather</span>
     </div>
   </div>
 
@@ -234,6 +236,20 @@
         <p class="science">Lost hikers <strong>walk in circles and genuinely can't tell</strong>. A baseplate compass doesn't die, doesn't drop bars, and doesn't care how confident you feel.</p>
         <a class="btn" href="https://www.amazon.ca/dp/B00494ZMO2?tag=survivalcurio-20">View on Amazon →</a>
         <p class="from">FROM: “WHY LOST HIKERS WALK IN CIRCLES” · “FIND THE NORTH STAR”</p>
+      </div>
+    </div>
+
+    <div class="card" data-cat="weather" data-kw="weather radio noaa weatheradio storm alert warning midland er210 runningsnail crank solar emergency broadcast lightning thunder forecast">
+      <div class="cardimg"><div class="tag">Weather</div><img src="photos/tile-snow.jpg" alt="Weather turning over open country"></div>
+      <div class="cardbody">
+        <h2>Hears the storm before the sky shows it</h2>
+        <div class="prod">RunningSnail crank radio · Midland ER210</div>
+        <p class="science">Weatheradio Canada and NOAA broadcast warnings on <strong>7 VHF channels your phone ignores</strong> — no cell signal, no data plan, and crank + solar power instead of battery anxiety.</p>
+        <div class="btnrow">
+          <a class="btn" href="https://www.amazon.ca/dp/B01DVXDXQU?tag=survivalcurio-20">Budget: RunningSnail →</a>
+          <a class="btn" href="https://www.amazon.ca/dp/B015QICDD2?tag=survivalcurio-20">Step-up: Midland ER210 →</a>
+        </div>
+        <p class="from">FROM: “MOST LIGHTNING VICTIMS WERE NEVER STRUCK”</p>
       </div>
     </div>
 
