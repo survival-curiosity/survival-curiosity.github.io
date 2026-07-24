@@ -17,61 +17,77 @@
     --line:#28322a; --serif:"Fraunces",serif; --sans:"Archivo",sans-serif; --mono:"IBM Plex Mono",monospace;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--pine); color:var(--cream); font:16px/1.6 var(--sans); overflow-x:hidden; }
+  body {
+    color:var(--cream); font:16px/1.6 var(--sans); overflow-x:hidden;
+    /* Portrait photo in a landscape window: 28% pulls the forest + falls-crest into
+       the visible band. Dead centre lands on the dark cliff face and reads as black. */
+    background:var(--pine) url("photos/hero-falls.jpg") center 28%/cover fixed no-repeat;
+  }
+  /* Light scrim only — the rails and cards carry their own backing, so this needs
+     to unify the photo, not darken it. Heavier than ~.35 and the page reads black again. */
+  body::after {
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:linear-gradient(180deg, rgba(12,17,14,.34) 0%, rgba(12,17,14,.26) 45%, rgba(12,17,14,.44) 100%);
+  }
   body::before {
     content:""; position:fixed; inset:0; pointer-events:none; opacity:.045; z-index:0;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%23f07c2c' stroke-width='1'%3E%3Cpath d='M60 210c0-90 60-140 150-140s150 50 150 140-60 140-150 140S60 300 60 210z'/%3E%3Cpath d='M95 210c0-70 47-110 115-110s115 40 115 110-47 110-115 110S95 280 95 210z'/%3E%3Cpath d='M130 210c0-50 34-80 80-80s80 30 80 80-34 80-80 80-80-30-80-80z'/%3E%3Cpath d='M165 210c0-30 20-50 45-50s45 20 45 50-20 50-45 50-45-20-45-50z'/%3E%3Cpath d='M-40 60 Q40 20 120 60 T280 60 T440 60'/%3E%3Cpath d='M-40 380 Q40 340 120 380 T280 380 T440 380'/%3E%3C/g%3E%3C/svg%3E");
     background-size:420px;
   }
-  .wrap { position:relative; z-index:1; max-width:760px; margin:0 auto; padding:0 20px 72px; }
+  .wrap {
+    position:relative; z-index:1; max-width:1560px; margin:0 auto;
+    padding:18px 20px 72px; display:grid; gap:22px;
+    grid-template-columns:190px minmax(0,1fr) 230px;
+    align-items:start;
+  }
+  .rail {
+    position:sticky; top:18px; align-self:start;
+    background:rgba(12,17,14,.72); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(239,232,214,.10); border-radius:14px; padding:16px 14px;
+  }
+  .col { min-width:0; display:flex; flex-direction:column; }
+  .brandname { font:900 1.25rem/1.05 var(--serif); letter-spacing:-.015em; margin-top:6px; }
+  .brandname em { font-style:italic; font-weight:500; color:var(--ember2); }
+  .railhead { font:600 .66rem/1 var(--mono); letter-spacing:.2em; text-transform:uppercase;
+              color:var(--moss); margin:18px 0 10px; }
+  .rail .chips { display:flex; flex-direction:column; gap:6px; overflow:visible; }
+  .rail .chip { width:100%; text-align:left; }
+  .vid { display:flex; gap:9px; align-items:center; text-decoration:none; margin-bottom:10px; }
+  .vid img { width:40px; height:66px; object-fit:cover; border-radius:6px; flex:0 0 40px;
+             border:1px solid var(--line); transition:border-color .2s; }
+  .vid span { font:600 .78rem/1.25 var(--sans); color:var(--cream); }
+  .vid:hover img { border-color:var(--ember); }
+  .vid:hover span { color:var(--ember2); }
+  .watchall { display:block; font:600 .7rem var(--mono); color:var(--ember);
+              text-decoration:none; letter-spacing:.08em; margin-top:2px; }
+  .chan { display:block; font:800 .8rem var(--sans); color:var(--cream); text-decoration:none;
+          padding:7px 0; border-bottom:1px solid rgba(239,232,214,.08); }
+  .chan:last-child { border-bottom:none; }
+  .chan:hover { color:var(--ember2); }
+  .pagehead h1 { font:900 clamp(1.8rem,3.4vw,2.6rem)/1.02 var(--serif); letter-spacing:-.015em; }
+  .pagehead .tagline { margin:8px 0 4px; color:var(--dim); max-width:52ch; }
 
-  .hero { position:relative; margin:0 -20px; height:52vh; min-height:380px; max-height:540px; overflow:hidden; }
-  .hero img.falls { width:100%; height:100%; object-fit:cover; object-position:center 40%; transform:scale(1.05); animation:heroDrift 12s ease-out forwards; }
-  @keyframes heroDrift { to { transform:scale(1.0); } }
-  .hero .scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,17,14,.3) 0%, rgba(12,17,14,0) 32%, rgba(12,17,14,.62) 70%, var(--pine) 99%); }
-  .hero .title { position:absolute; left:20px; right:20px; bottom:20px; }
   .kicker { font:600 .72rem/1 var(--mono); letter-spacing:.24em; text-transform:uppercase; color:var(--ember2); margin-bottom:10px; }
-  h1 { font:900 clamp(2.4rem,8.5vw,3.8rem)/0.98 var(--serif); letter-spacing:-.015em; }
   h1 em { font-style:italic; font-weight:500; color:var(--ember2); }
-  .tagline { margin-top:10px; color:var(--dim); font-size:1rem; max-width:36ch; }
 
   .up { opacity:0; transform:translateY(18px); animation:up .7s cubic-bezier(.2,.7,.2,1) forwards; }
   @keyframes up { to { opacity:1; transform:none; } }
 
-  .stripwrap { margin:26px -20px 0; }
-  .striphead { display:flex; align-items:baseline; justify-content:space-between; padding:0 20px 10px; }
-  .striphead span { font:600 .72rem/1 var(--mono); letter-spacing:.22em; text-transform:uppercase; color:var(--moss); }
-  .striphead a { font:600 .72rem var(--mono); color:var(--ember); text-decoration:none; letter-spacing:.08em; }
-  .strip { display:flex; gap:8px; overflow-x:auto; padding:2px 20px 14px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
-  .strip::-webkit-scrollbar { display:none; }
-  .strip a { flex:0 0 auto; width:118px; aspect-ratio:9/16; border-radius:10px; overflow:hidden; position:relative; border:1px solid var(--line); transition:transform .18s, border-color .2s; }
-  .strip a:hover { transform:translateY(-3px) scale(1.02); border-color:var(--ember); }
-  .strip img { width:100%; height:100%; object-fit:cover; display:block; }
-  .strip a::after { content:"▶"; position:absolute; right:7px; bottom:6px; font-size:.65rem; color:#fff; opacity:.85; text-shadow:0 1px 4px rgba(0,0,0,.8); }
-
   .fieldnote {
-    margin:22px 0 8px; padding:13px 16px; background:var(--pine2);
+    margin:0 0 14px; padding:13px 16px; background:rgba(18,23,18,.80);
     border-left:3px solid var(--ember); border-radius:0 10px 10px 0;
     font:400 .78rem/1.55 var(--mono); color:var(--dim);
   }
   .fieldnote b { color:var(--cream); font-weight:600; }
 
-  .channels { display:flex; gap:10px; margin:16px 0 6px; }
-  .channels a {
-    flex:1; text-align:center; text-decoration:none; color:var(--cream);
-    background:var(--card); border:1px solid var(--line); padding:12px 10px; border-radius:10px;
-    font:800 .85rem var(--sans); transition:border-color .2s, transform .15s;
-  }
-  .channels a:hover { border-color:var(--ember); transform:translateY(-1px); }
-
-  /* ── search + category filter ── */
-  .toolbar {
-    position:sticky; top:0; z-index:20; margin:26px -20px 20px; padding:12px 20px 12px;
-    background:rgba(12,17,14,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
-  }
+  /* ── search (chips live in the left rail) ── */
+  /* Not sticky: the left rail keeps the category filter on screen permanently, and a
+     pinned bar here left an 18px sliver of card sliding past above it. */
+  .toolbar { margin:0 0 14px; }
   .search {
-    display:flex; align-items:center; gap:10px; background:var(--card);
-    border:1px solid var(--line); border-radius:12px; padding:11px 14px; margin-bottom:10px;
+    display:flex; align-items:center; gap:10px;
+    background:rgba(12,17,14,.80); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line); border-radius:12px; padding:11px 14px;
     transition:border-color .2s;
   }
   .search:focus-within { border-color:var(--ember); }
@@ -81,7 +97,7 @@
     font:400 1rem var(--sans);
   }
   .search input::placeholder { color:var(--faint); }
-  .chips { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  .chips { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; flex-wrap:wrap; }
   .chips::-webkit-scrollbar { display:none; }
   .chip {
     flex:0 0 auto; cursor:pointer; user-select:none;
@@ -95,33 +111,35 @@
   .grouphead { font:600 .74rem/1 var(--mono); letter-spacing:.26em; text-transform:uppercase; color:var(--moss); margin:34px 0 14px; display:flex; align-items:center; gap:14px; }
   .grouphead::after { content:""; flex:1; height:1px; background:var(--line); }
 
+  /* Smoked glass: opacity only, no per-card backdrop-filter (17 blur layers = scroll jank). */
+  .grid { display:grid; gap:16px; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; }
   .card {
-    position:relative; background:var(--card); border:1px solid var(--line);
-    border-radius:16px; overflow:hidden; margin-bottom:16px;
+    position:relative; background:rgba(23,30,24,.76); border:1px solid rgba(239,232,214,.14);
+    border-radius:14px; overflow:hidden; margin-bottom:0;
     transition:border-color .25s, transform .2s, box-shadow .25s;
   }
   .card:hover { border-color:#41523f; transform:translateY(-3px); box-shadow:0 18px 40px -18px rgba(0,0,0,.7); }
   .card.hide { display:none; }
-  .cardimg { position:relative; height:168px; overflow:hidden; }
+  .cardimg { position:relative; height:132px; overflow:hidden; }
   .cardimg img { width:100%; height:100%; object-fit:cover; object-position:center 18%; transition:transform .6s ease; }
   .card:hover .cardimg img { transform:scale(1.05); }
-  .cardimg::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,17,14,.05) 40%, var(--card) 100%); }
+  .cardimg::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,17,14,.05) 40%, rgba(23,30,24,.76) 100%); }
   .cardimg .tag {
-    position:absolute; left:14px; top:12px; z-index:2;
-    font:600 .68rem/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#fff;
-    background:rgba(12,17,14,.72); padding:6px 10px; border-radius:7px; backdrop-filter:blur(4px);
+    position:absolute; left:12px; top:10px; z-index:2;
+    font:600 .62rem/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#fff;
+    background:rgba(12,17,14,.88); padding:5px 9px; border-radius:6px;
   }
-  .cardbody { padding:16px 20px 18px; margin-top:-26px; position:relative; z-index:2; }
-  .card h2 { font:800 1.2rem/1.25 var(--sans); margin-bottom:4px; letter-spacing:-.01em; }
+  .cardbody { padding:14px 16px 16px; margin-top:-22px; position:relative; z-index:2; }
+  .card h2 { font:800 1.02rem/1.25 var(--sans); margin-bottom:4px; letter-spacing:-.01em; }
   .prod { font:600 .74rem var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--ember2); margin-bottom:10px; }
   .science {
-    font:500 italic 1.06rem/1.5 var(--serif); color:var(--dim);
-    border-left:2px solid var(--line); padding-left:14px; margin-bottom:16px;
+    font:500 italic .94rem/1.45 var(--serif); color:var(--dim);
+    border-left:2px solid var(--line); padding-left:12px; margin-bottom:14px;
   }
   .science strong { color:var(--cream); font-weight:600; }
   .btn {
     display:inline-block; text-decoration:none; background:var(--ember); color:#160f08;
-    font:800 .9rem var(--sans); padding:11px 20px; border-radius:10px; transition:background .2s, transform .15s;
+    font:800 .8rem var(--sans); padding:9px 15px; border-radius:9px; transition:background .2s, transform .15s;
   }
   .btn:hover { background:var(--ember2); }
   .btn:active { transform:translateY(1px); }
@@ -131,13 +149,52 @@
   .noresults { display:none; text-align:center; color:var(--faint); font:500 italic 1.05rem var(--serif); padding:40px 0 10px; }
   .noresults.show { display:block; }
 
-  @media (min-width:600px) {
-    .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .card { margin-bottom:0; }
+  /* ── responsive ladder: 3-up ≥1300 · 2-up 900–1299 · single column <900 ── */
+  @media (max-width:1299px) {
+    .wrap { grid-template-columns:170px minmax(0,1fr) 200px; gap:14px; }
+    .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .cardimg { height:150px; }
   }
+  @media (max-width:899px) {
+    /* iOS ignores background-attachment:fixed — scroll keeps the photo visible instead of zoom-locking it. */
+    body { background-attachment:scroll; background-position:center top; }
+    .wrap { grid-template-columns:minmax(0,1fr); gap:14px; padding:14px 16px 56px; }
+    .rail { position:static; }
+    #navrail { order:1; }
+    .col { order:2; }
+    #vidrail { order:3; }
+    /* The pagehead sits directly below on mobile — don't print the wordmark twice. */
+    #navrail .mark, #navrail .brandname { display:none; }
+    #navrail .railhead { margin-top:0; }
+    .rail .chips { flex-direction:row; overflow-x:auto; }
+    .rail .chip { width:auto; }
+    .vidlist { display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; }
+    .vidlist::-webkit-scrollbar { display:none; }
+    .vid { flex:0 0 128px; flex-direction:column; align-items:flex-start; gap:6px; }
+    .vid img { width:128px; height:180px; flex:0 0 auto; }
+    .grid { grid-template-columns:minmax(0,1fr); }
+    .cardimg { height:168px; }
+  }
 
-  footer { margin-top:56px; border-top:1px solid var(--line); padding-top:22px; }
+  /* ── streaming / free-trial section ── */
+  .watch { margin-top:34px; }
+  .watchgrid { display:grid; gap:10px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .wcard {
+    background:rgba(23,30,24,.82); border:1px solid rgba(239,232,214,.12); border-radius:14px;
+    padding:16px; display:flex; flex-direction:column; transition:border-color .25s, transform .2s;
+  }
+  .wcard:hover { border-color:#41523f; transform:translateY(-3px); }
+  .wcard h3 { font:800 1.02rem/1.25 var(--sans); margin:4px 0 6px; }
+  .wcard .science { flex:1; border-left:none; padding-left:0; }
+  .wcard .btn { align-self:flex-start; }
+  .wtag { font:600 .62rem/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--moss); }
+  .note { font:400 .78rem/1.55 var(--mono); color:var(--faint); }
+  .note b { color:var(--dim); font-weight:600; }
+  .note a { color:var(--ember); text-decoration:none; }
+  @media (max-width:1299px) { .watchgrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:899px)  { .watchgrid { grid-template-columns:minmax(0,1fr); } }
+
+  footer { margin-top:48px; border-top:1px solid var(--line); padding-top:22px; }
   .mark { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
   .mark img { width:44px; height:44px; border-radius:50%; }
   .mark div { font:900 1.05rem var(--serif); }
@@ -149,50 +206,12 @@
 <body>
 <div class="wrap">
 
-  <header class="hero">
-    <img class="falls" src="photos/hero-falls.jpg" alt="Waterfall in the Canadian Rockies, shot by Survival Curiosity">
-    <div class="scrim"></div>
-    <div class="title">
-      <div class="kicker up" style="animation-delay:.1s">Gear picks · science-backed</div>
-      <h1 class="up" style="animation-delay:.2s">Survival <em>Curiosity</em></h1>
-      <p class="tagline up" style="animation-delay:.3s">One affordable, science-backed pick per problem. No hype, no $400 jackets — the thing that works, and the video that explains why.</p>
+  <aside class="rail up" id="navrail" style="animation-delay:.1s">
+    <div class="mark">
+      <img src="photos/mark.png" alt="Survival Curiosity">
     </div>
-  </header>
-
-  <div class="stripwrap up" style="animation-delay:.4s">
-    <div class="striphead">
-      <span>From the channel</span>
-      <a href="https://www.youtube.com/@survival.curiosity">watch all →</a>
-    </div>
-    <div class="strip">
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bear.jpg" alt="Why you never run from a bear"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snake.jpg" alt="Rattlesnake — TOP 5 dangerous animals"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-stars.jpg" alt="Find the North Star"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-moose.jpg" alt="Moose — the most dangerous animal on the trail"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-ocean.jpg" alt="Rip currents"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-marmot.jpg" alt="Nature's car alarm — the marmot"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snow.jpg" alt="Why down fails when wet"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-deer.jpg" alt="The deadliest animal has antlers"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-lake.jpg" alt="Cold water shock"></a>
-      <a href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bee.jpg" alt="Bees — number two most dangerous"></a>
-    </div>
-  </div>
-
-  <div class="fieldnote up" style="animation-delay:.5s">
-    <b>Field note:</b> As an Amazon Associate I earn from qualifying purchases. Prices live on Amazon — tap through for current price and stock. Hero photo: shot on trail, by me. Stills: from the videos.
-  </div>
-
-  <nav class="channels up" style="animation-delay:.6s">
-    <a href="https://www.youtube.com/@survival.curiosity">▶ YouTube — daily Shorts</a>
-    <a href="https://www.tiktok.com/@Survival.Curiosity">♪ TikTok</a>
-    <a href="https://www.facebook.com/survivalcuriosity">ⓕ Facebook</a>
-  </nav>
-
-  <div class="toolbar">
-    <label class="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#efe8d6" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Search gear — try “fire”, “ticks”, “compass”…" autocomplete="off">
-    </label>
+    <div class="brandname">Survival <em>Curiosity</em></div>
+    <div class="railhead">Categories</div>
     <div class="chips" id="chips">
       <span class="chip on" data-cat="all">All</span>
       <span class="chip" data-cat="fire">Fire</span>
@@ -206,6 +225,25 @@
       <span class="chip" data-cat="light">Light</span>
       <span class="chip" data-cat="plants">Plants</span>
     </div>
+  </aside>
+
+  <div class="col">
+
+  <header class="pagehead up" style="animation-delay:.2s">
+    <div class="kicker">Gear picks · science-backed</div>
+    <h1>Survival <em>Curiosity</em></h1>
+    <p class="tagline">One affordable, science-backed pick per problem. No hype, no $400 jackets — the thing that works, and the video that explains why.</p>
+  </header>
+
+  <div class="toolbar">
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#efe8d6" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search gear — try “fire”, “ticks”, “compass”…" autocomplete="off">
+    </label>
+  </div>
+
+  <div class="fieldnote up" style="animation-delay:.3s">
+    <b>Field note:</b> As an Amazon Associate I earn from qualifying purchases. Prices live on Amazon — tap through for current price and stock. Hero photo: shot on trail, by me. Stills: from the videos.
   </div>
 
   <div class="grid" id="grid">
@@ -423,14 +461,80 @@
 
   <p class="noresults" id="noresults">Nothing matches — try “fire”, “water”, or clear the search.</p>
 
+  <section class="watch">
+    <div class="grouphead">Watch &amp; read — nature &amp; science</div>
+    <p class="note" style="margin:-6px 0 16px;max-width:60ch">In the channel's spirit — real nature and science, no fluff. Each starts with a free trial. <b>Affiliate links: I may earn a small bounty when you start a trial, at no extra cost to you.</b></p>
+    <div class="watchgrid">
+      <div class="wcard">
+        <div class="wtag">Nature · Science</div>
+        <h3>BBC Earth</h3>
+        <p class="science">Mind-blowing factual shows about the world we live in — the definitive nature-doc channel.</p>
+        <div class="prod">$3.99/mo · free trial</div>
+        <a class="btn" href="https://www.primevideo.com/storefront/?tag=survivalcurio-20&amp;contentType=subscription&amp;contentId=bbcearthca&amp;benefitId=bbcearthca">Start free trial →</a>
+      </div>
+      <div class="wcard">
+        <div class="wtag">Nature</div>
+        <h3>Love Nature</h3>
+        <p class="science">Powerful, captivating stories from our natural world — right on the channel's wavelength.</p>
+        <div class="prod">$3.99/mo · free trial</div>
+        <a class="btn" href="https://www.primevideo.com/storefront/?tag=survivalcurio-20&amp;contentType=subscription&amp;contentId=lovenatureca&amp;benefitId=lovenatureca">Start free trial →</a>
+      </div>
+      <div class="wcard">
+        <div class="wtag">Curiosity</div>
+        <h3>Smithsonian Channel</h3>
+        <p class="science">Powerful stories that fuel the curiosity in us all — the name says it.</p>
+        <div class="prod">$3.99/mo · free trial</div>
+        <a class="btn" href="https://www.primevideo.com/storefront/?tag=survivalcurio-20&amp;contentType=subscription&amp;contentId=smithsonianca&amp;benefitId=smithsonianca">Start free trial →</a>
+      </div>
+      <div class="wcard">
+        <div class="wtag">Learn</div>
+        <h3>The Great Courses</h3>
+        <p class="science">Thousands of engaging lectures from experts — the science behind the science.</p>
+        <div class="prod">$7.99/mo · free trial</div>
+        <a class="btn" href="https://www.primevideo.com/storefront/?tag=survivalcurio-20&amp;contentType=subscription&amp;contentId=greatcoursesca&amp;benefitId=greatcoursesca">Start free trial →</a>
+      </div>
+      <div class="wcard">
+        <div class="wtag">Read · Books</div>
+        <h3>Kindle Unlimited</h3>
+        <p class="science">Unlimited survival, nature &amp; field-guide reading — pairs with the guidebooks named in the videos.</p>
+        <div class="prod">Free trial</div>
+        <a class="btn" href="https://www.amazon.ca/kindleunlimited?tag=survivalcurio-20">Start free trial →</a>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px"><a href="prime-channels.html">More Amazon free trials — Prime, Prime Video, Music &amp; every channel →</a></p>
+  </section>
+
   <footer>
     <div class="mark">
       <img src="photos/mark.png" alt="Survival Curiosity">
       <div>Survival Curiosity<small>SURVIVAL SCIENCE IN 60 SECONDS</small></div>
     </div>
-    <p>New Shorts daily on <a href="https://www.youtube.com/@survival.curiosity">YouTube</a> and <a href="https://www.tiktok.com/@Survival.Curiosity">TikTok</a>. Hero photo shot on trail by me; card imagery from the channel's videos.</p>
+    <p>New Shorts daily on <a href="https://www.youtube.com/@survival.curiosity">YouTube</a>, <a href="https://www.tiktok.com/@Survival.Curiosity">TikTok</a>, and <a href="https://www.facebook.com/survivalcuriosity">Facebook</a>. Hero photo shot on trail by me; card imagery from the channel's videos.</p>
     <p>As an Amazon Associate I earn from qualifying purchases. Product claims reflect manufacturer specifications — always read the current listing. Nothing here is medical or rescue advice: take a course, carry the ten essentials, tell someone your route.</p>
   </footer>
+
+  </div><!-- /.col -->
+
+  <aside class="rail up" id="vidrail" style="animation-delay:.4s">
+    <div class="railhead" style="margin-top:0">From the channel</div>
+    <div class="vidlist">
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bear.jpg" alt=""><span>Why you never run from a bear</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snake.jpg" alt=""><span>TOP 5 most dangerous animals</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-stars.jpg" alt=""><span>Find the North Star</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-moose.jpg" alt=""><span>The moose is the real threat</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-ocean.jpg" alt=""><span>Rip currents — swim sideways</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-marmot.jpg" alt=""><span>Nature's car alarm</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snow.jpg" alt=""><span>Why down fails when wet</span></a>
+      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-lake.jpg" alt=""><span>Cold water shock</span></a>
+    </div>
+    <a class="watchall" href="https://www.youtube.com/@survival.curiosity">WATCH ALL →</a>
+
+    <div class="railhead">Channels</div>
+    <a class="chan" href="https://www.youtube.com/@survival.curiosity">▶ YouTube — daily Shorts</a>
+    <a class="chan" href="https://www.tiktok.com/@Survival.Curiosity">♪ TikTok</a>
+    <a class="chan" href="https://www.facebook.com/survivalcuriosity">ⓕ Facebook</a>
+    <a class="chan" href="prime-channels.html">＋ Free trials &amp; Prime Video</a>
+  </aside>
 
 </div>
 
