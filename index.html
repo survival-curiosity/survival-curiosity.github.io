@@ -149,9 +149,23 @@
   .noresults { display:none; text-align:center; color:var(--faint); font:500 italic 1.05rem var(--serif); padding:40px 0 10px; }
   .noresults.show { display:block; }
 
-  /* ── responsive ladder: 3-up ≥1300 · 2-up 900–1299 · single column <900 ── */
-  @media (max-width:1299px) {
-    .wrap { grid-template-columns:170px minmax(0,1fr) 200px; gap:14px; }
+  /* ── responsive ladder: 3-up ≥1040 · 2-up 900–1039 · single column <900 ──
+     3-up is the normal case, not a wide-screen luxury: a 1280 laptop or any
+     non-maximized window must still get three tiles. Rails and card chrome
+     shrink to buy the width instead of dropping a column. */
+  @media (max-width:1179px) {
+    .wrap { grid-template-columns:158px minmax(0,1fr) 188px; gap:16px; padding:16px 16px 64px; }
+    .grid { gap:12px; }
+    .rail { padding:14px 11px; }
+    .cardimg { height:112px; }
+    .card h2 { font-size:.94rem; }
+    .cardbody { padding:12px 13px 14px; }
+    .science { font-size:.86rem; padding-left:10px; margin-bottom:12px; }
+    .btn { font-size:.74rem; padding:8px 12px; }
+    .vid img { width:34px; height:56px; flex:0 0 34px; }
+    .vid span { font-size:.72rem; }
+  }
+  @media (max-width:1039px) {
     .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .cardimg { height:150px; }
   }
@@ -191,7 +205,7 @@
   .note { font:400 .78rem/1.55 var(--mono); color:var(--faint); }
   .note b { color:var(--dim); font-weight:600; }
   .note a { color:var(--ember); text-decoration:none; }
-  @media (max-width:1299px) { .watchgrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:1039px) { .watchgrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media (max-width:899px)  { .watchgrid { grid-template-columns:minmax(0,1fr); } }
 
   footer { margin-top:48px; border-top:1px solid var(--line); padding-top:22px; }
