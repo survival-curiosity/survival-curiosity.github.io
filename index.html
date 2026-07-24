@@ -35,16 +35,34 @@
     background-size:420px;
   }
   .wrap {
-    position:relative; z-index:1; max-width:1560px; margin:0 auto;
+    position:relative; z-index:1; max-width:1280px; margin:0 auto;
     padding:18px 20px 72px; display:grid; gap:22px;
     grid-template-columns:190px minmax(0,1fr) 230px;
+    /* 1280 not 1560: at 2-up a wider shell stretches cards to ~540px, and the
+       narrower shell leaves real gutters where the falls actually shows. */
     align-items:start;
   }
+  /* .rail is the smoked-glass panel look only. Stickiness lives on the
+     column wrappers so the right side can hold two separate tiles. */
   .rail {
-    position:sticky; top:18px; align-self:start;
     background:rgba(12,17,14,.72); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     border:1px solid rgba(239,232,214,.10); border-radius:14px; padding:16px 14px;
   }
+  /* A sticky element taller than the viewport clips its own tail and the page
+     scroll can never reach it — the Facebook and trials links were unreachable.
+     Cap both rails to the viewport; the video list scrolls inside its tile so
+     the channel links below it stay on screen. */
+  #navrail, .railcol {
+    position:sticky; top:18px; align-self:start; max-height:calc(100vh - 36px);
+  }
+  #navrail { overflow-y:auto; }
+  .railcol { display:flex; flex-direction:column; gap:14px; min-height:0; }
+  #vidcard { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+  #vidcard .vidlist { overflow-y:auto; overscroll-behavior:contain; min-height:0; flex:1; }
+  .scrollpane { scrollbar-width:thin; scrollbar-color:rgba(239,232,214,.22) transparent; }
+  .scrollpane::-webkit-scrollbar { width:6px; }
+  .scrollpane::-webkit-scrollbar-track { background:transparent; }
+  .scrollpane::-webkit-scrollbar-thumb { background:rgba(239,232,214,.22); border-radius:3px; }
   .col { min-width:0; display:flex; flex-direction:column; }
   .brandname { font:900 1.25rem/1.05 var(--serif); letter-spacing:-.015em; margin-top:6px; }
   .brandname em { font-style:italic; font-weight:500; color:var(--ember2); }
@@ -72,6 +90,21 @@
 
   .up { opacity:0; transform:translateY(18px); animation:up .7s cubic-bezier(.2,.7,.2,1) forwards; }
   @keyframes up { to { opacity:1; transform:none; } }
+
+  /* Channel links live in the centre column (Colin, 2026-07-23); the right
+     rail is videos only, so more of them fit before it needs to scroll. */
+  .channels { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:0 0 14px; }
+  .channels a {
+    text-align:center; text-decoration:none; color:var(--cream);
+    background:rgba(23,30,24,.76); border:1px solid rgba(239,232,214,.14);
+    padding:11px 10px; border-radius:11px; font:800 .86rem/1.2 var(--sans);
+    transition:border-color .2s, transform .15s, color .2s;
+  }
+  .channels a small {
+    display:block; font:400 .64rem/1.4 var(--mono); color:var(--faint);
+    letter-spacing:.04em; margin-top:3px;
+  }
+  .channels a:hover { border-color:var(--ember); color:var(--ember2); transform:translateY(-1px); }
 
   .fieldnote {
     margin:0 0 14px; padding:13px 16px; background:rgba(18,23,18,.80);
@@ -112,7 +145,7 @@
   .grouphead::after { content:""; flex:1; height:1px; background:var(--line); }
 
   /* Smoked glass: opacity only, no per-card backdrop-filter (17 blur layers = scroll jank). */
-  .grid { display:grid; gap:16px; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; }
+  .grid { display:grid; gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
   .card {
     position:relative; background:rgba(23,30,24,.76); border:1px solid rgba(239,232,214,.14);
     border-radius:14px; overflow:hidden; margin-bottom:0;
@@ -120,7 +153,7 @@
   }
   .card:hover { border-color:#41523f; transform:translateY(-3px); box-shadow:0 18px 40px -18px rgba(0,0,0,.7); }
   .card.hide { display:none; }
-  .cardimg { position:relative; height:132px; overflow:hidden; }
+  .cardimg { position:relative; height:158px; overflow:hidden; }
   .cardimg img { width:100%; height:100%; object-fit:cover; object-position:center 18%; transition:transform .6s ease; }
   .card:hover .cardimg img { transform:scale(1.05); }
   .cardimg::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(12,17,14,.05) 40%, rgba(23,30,24,.76) 100%); }
@@ -129,17 +162,17 @@
     font:600 .62rem/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#fff;
     background:rgba(12,17,14,.88); padding:5px 9px; border-radius:6px;
   }
-  .cardbody { padding:14px 16px 16px; margin-top:-22px; position:relative; z-index:2; }
-  .card h2 { font:800 1.02rem/1.25 var(--sans); margin-bottom:4px; letter-spacing:-.01em; }
+  .cardbody { padding:16px 18px 18px; margin-top:-24px; position:relative; z-index:2; }
+  .card h2 { font:800 1.15rem/1.25 var(--sans); margin-bottom:4px; letter-spacing:-.01em; }
   .prod { font:600 .74rem var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--ember2); margin-bottom:10px; }
   .science {
-    font:500 italic .94rem/1.45 var(--serif); color:var(--dim);
+    font:500 italic 1rem/1.5 var(--serif); color:var(--dim);
     border-left:2px solid var(--line); padding-left:12px; margin-bottom:14px;
   }
   .science strong { color:var(--cream); font-weight:600; }
   .btn {
     display:inline-block; text-decoration:none; background:var(--ember); color:#160f08;
-    font:800 .8rem var(--sans); padding:9px 15px; border-radius:9px; transition:background .2s, transform .15s;
+    font:800 .86rem var(--sans); padding:10px 17px; border-radius:9px; transition:background .2s, transform .15s;
   }
   .btn:hover { background:var(--ember2); }
   .btn:active { transform:translateY(1px); }
@@ -149,37 +182,35 @@
   .noresults { display:none; text-align:center; color:var(--faint); font:500 italic 1.05rem var(--serif); padding:40px 0 10px; }
   .noresults.show { display:block; }
 
-  /* ── responsive ladder: 3-up ≥1040 · 2-up 900–1039 · single column <900 ──
-     3-up is the normal case, not a wide-screen luxury: a 1280 laptop or any
-     non-maximized window must still get three tiles. Rails and card chrome
-     shrink to buy the width instead of dropping a column. */
-  @media (max-width:1179px) {
+  /* ── responsive ladder: 2-up ≥900 · single column <900 ──
+     Back to 2-up in the centre (Colin, 2026-07-23). Rails and card chrome
+     tighten below 1080 rather than dropping to one column early. */
+  @media (max-width:1079px) {
     .wrap { grid-template-columns:158px minmax(0,1fr) 188px; gap:16px; padding:16px 16px 64px; }
+    .channels { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .grid { gap:12px; }
     .rail { padding:14px 11px; }
-    .cardimg { height:112px; }
-    .card h2 { font-size:.94rem; }
-    .cardbody { padding:12px 13px 14px; }
-    .science { font-size:.86rem; padding-left:10px; margin-bottom:12px; }
-    .btn { font-size:.74rem; padding:8px 12px; }
+    .cardimg { height:140px; }
+    .card h2 { font-size:1.02rem; }
+    .cardbody { padding:13px 14px 15px; }
+    .science { font-size:.9rem; padding-left:10px; margin-bottom:12px; }
+    .btn { font-size:.78rem; padding:9px 13px; }
     .vid img { width:34px; height:56px; flex:0 0 34px; }
     .vid span { font-size:.72rem; }
-  }
-  @media (max-width:1039px) {
-    .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .cardimg { height:150px; }
   }
   @media (max-width:899px) {
     /* iOS ignores background-attachment:fixed — scroll keeps the photo visible instead of zoom-locking it. */
     body { background-attachment:scroll; background-position:center top; }
     .wrap { grid-template-columns:minmax(0,1fr); gap:14px; padding:14px 16px 56px; }
-    .rail { position:static; }
+    #navrail, .railcol { position:static; max-height:none; overflow:visible; }
+    #vidcard .vidlist { overflow:visible; }
     #navrail { order:1; }
     .col { order:2; }
     #vidrail { order:3; }
     /* The pagehead sits directly below on mobile — don't print the wordmark twice. */
     #navrail .mark, #navrail .brandname { display:none; }
     #navrail .railhead { margin-top:0; }
+    .channels { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .rail .chips { flex-direction:row; overflow-x:auto; }
     .rail .chip { width:auto; }
     .vidlist { display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; }
@@ -192,7 +223,7 @@
 
   /* ── streaming / free-trial section ── */
   .watch { margin-top:34px; }
-  .watchgrid { display:grid; gap:10px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .watchgrid { display:grid; gap:12px; grid-template-columns:repeat(2,minmax(0,1fr)); }
   .wcard {
     background:rgba(23,30,24,.82); border:1px solid rgba(239,232,214,.12); border-radius:14px;
     padding:16px; display:flex; flex-direction:column; transition:border-color .25s, transform .2s;
@@ -205,7 +236,6 @@
   .note { font:400 .78rem/1.55 var(--mono); color:var(--faint); }
   .note b { color:var(--dim); font-weight:600; }
   .note a { color:var(--ember); text-decoration:none; }
-  @media (max-width:1039px) { .watchgrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media (max-width:899px)  { .watchgrid { grid-template-columns:minmax(0,1fr); } }
 
   footer { margin-top:48px; border-top:1px solid var(--line); padding-top:22px; }
@@ -256,7 +286,14 @@
     </label>
   </div>
 
-  <div class="fieldnote up" style="animation-delay:.3s">
+  <nav class="channels up" style="animation-delay:.3s">
+    <a href="https://www.youtube.com/@survival.curiosity">▶ YouTube<small>daily Shorts</small></a>
+    <a href="https://www.tiktok.com/@Survival.Curiosity">♪ TikTok<small>@Survival.Curiosity</small></a>
+    <a href="https://www.facebook.com/survivalcuriosity">ⓕ Facebook<small>@survivalcuriosity</small></a>
+    <a href="prime-channels.html">＋ Free trials<small>Prime Video &amp; more</small></a>
+  </nav>
+
+  <div class="fieldnote up" style="animation-delay:.35s">
     <b>Field note:</b> As an Amazon Associate I earn from qualifying purchases. Prices live on Amazon — tap through for current price and stock. Hero photo: shot on trail, by me. Stills: from the videos.
   </div>
 
@@ -529,26 +566,24 @@
 
   </div><!-- /.col -->
 
-  <aside class="rail up" id="vidrail" style="animation-delay:.4s">
-    <div class="railhead" style="margin-top:0">From the channel</div>
-    <div class="vidlist">
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bear.jpg" alt=""><span>Why you never run from a bear</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snake.jpg" alt=""><span>TOP 5 most dangerous animals</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-stars.jpg" alt=""><span>Find the North Star</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-moose.jpg" alt=""><span>The moose is the real threat</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-ocean.jpg" alt=""><span>Rip currents — swim sideways</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-marmot.jpg" alt=""><span>Nature's car alarm</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snow.jpg" alt=""><span>Why down fails when wet</span></a>
-      <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-lake.jpg" alt=""><span>Cold water shock</span></a>
-    </div>
-    <a class="watchall" href="https://www.youtube.com/@survival.curiosity">WATCH ALL →</a>
+  <div class="railcol up" id="vidrail" style="animation-delay:.4s">
 
-    <div class="railhead">Channels</div>
-    <a class="chan" href="https://www.youtube.com/@survival.curiosity">▶ YouTube — daily Shorts</a>
-    <a class="chan" href="https://www.tiktok.com/@Survival.Curiosity">♪ TikTok</a>
-    <a class="chan" href="https://www.facebook.com/survivalcuriosity">ⓕ Facebook</a>
-    <a class="chan" href="prime-channels.html">＋ Free trials &amp; Prime Video</a>
-  </aside>
+    <aside class="rail" id="vidcard">
+      <div class="railhead" style="margin-top:0">From the channel</div>
+      <div class="vidlist scrollpane">
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-bear.jpg" alt=""><span>Why you never run from a bear</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snake.jpg" alt=""><span>TOP 5 most dangerous animals</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-stars.jpg" alt=""><span>Find the North Star</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-moose.jpg" alt=""><span>The moose is the real threat</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-ocean.jpg" alt=""><span>Rip currents — swim sideways</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-marmot.jpg" alt=""><span>Nature's car alarm</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-snow.jpg" alt=""><span>Why down fails when wet</span></a>
+        <a class="vid" href="https://www.youtube.com/@survival.curiosity"><img src="photos/tile-lake.jpg" alt=""><span>Cold water shock</span></a>
+      </div>
+      <a class="watchall" href="https://www.youtube.com/@survival.curiosity">WATCH ALL →</a>
+    </aside>
+
+  </div>
 
 </div>
 
