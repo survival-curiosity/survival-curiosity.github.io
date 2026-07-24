@@ -35,11 +35,12 @@
     background-size:420px;
   }
   .wrap {
-    position:relative; z-index:1; max-width:1280px; margin:0 auto;
+    position:relative; z-index:1; max-width:1800px; margin:0 auto;
     padding:18px 20px 72px; display:grid; gap:22px;
     grid-template-columns:190px minmax(0,1fr) 230px;
-    /* 1280 not 1560: at 2-up a wider shell stretches cards to ~540px, and the
-       narrower shell leaves real gutters where the falls actually shows. */
+    /* Rails sit at the window edges — that was the point of the redesign.
+       The cap only bites on ultrawide displays, where edge-to-edge would
+       stretch a two-card row past readable width. */
     align-items:start;
   }
   /* .rail is the smoked-glass panel look only. Stickiness lives on the
@@ -181,6 +182,11 @@
 
   .noresults { display:none; text-align:center; color:var(--faint); font:500 italic 1.05rem var(--serif); padding:40px 0 10px; }
   .noresults.show { display:block; }
+
+  /* Wider window means wider cards; a fixed 158px image starts to read as a
+     letterboxed strip across the top of them. Grow the art to match. */
+  @media (min-width:1400px) { .cardimg { height:196px; } }
+  @media (min-width:1650px) { .cardimg { height:224px; } }
 
   /* ── responsive ladder: 2-up ≥900 · single column <900 ──
      Back to 2-up in the centre (Colin, 2026-07-23). Rails and card chrome
@@ -596,11 +602,15 @@
 
   function apply() {
     const term = q.value.trim().toLowerCase();
+    // Plain substring matching means a plural query misses a singular keyword:
+    // "ticks" is not inside "tick remover twister tickcheck" — and the search
+    // placeholder tells people to try exactly that. Fall back to the singular.
+    const stem = term.length > 3 && term.endsWith("s") ? term.slice(0, -1) : "";
     let shown = 0;
     for (const c of cards) {
       const inCat = cat === "all" || c.dataset.cat === cat;
       const hay = (c.textContent + " " + c.dataset.kw + " " + c.dataset.cat).toLowerCase();
-      const inSearch = !term || hay.includes(term);
+      const inSearch = !term || hay.includes(term) || (stem && hay.includes(stem));
       const show = inCat && inSearch;
       c.classList.toggle("hide", !show);
       if (show) shown++;
